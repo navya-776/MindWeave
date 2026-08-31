@@ -162,7 +162,7 @@ export function SudokuGame({ difficulty, onComplete }: Props) {
 
     const [r, c] = emptyCoords[Math.floor(Math.random() * emptyCoords.length)]!;
     const next = grid.map((row) => [...row]);
-    next[r]![c] = solution[r]![c];
+    next[r]![c] = solution[r]![c] ?? 0;
     setGrid(next);
     setHintsUsed((h) => h + 1);
 

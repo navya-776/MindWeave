@@ -21,17 +21,17 @@ import type { MazeDifficulty, RoundResult } from "@/lib/intelliplay/types";
 export const Route = createFileRoute("/play/maze")({
   head: () => ({
     meta: [
-      { title: "Maze Escape — IntelliPlay Adaptive Games" },
+      { title: "Path Navigation — MindWeave" },
       {
         name: "description",
         content:
-          "An adaptive maze that grows or shrinks with your child's spatial reasoning and planning skills.",
+          "Calm adaptive route planning and spatial navigation exercises for senior cognitive support.",
       },
-      { property: "og:title", content: "Maze Escape — IntelliPlay" },
+      { property: "og:title", content: "Path Navigation — MindWeave" },
       {
         property: "og:description",
         content:
-          "Adaptive spatial reasoning and planning practice for children.",
+          "Adaptive spatial reasoning and route planning practice at a relaxed pace.",
       },
     ],
   }),

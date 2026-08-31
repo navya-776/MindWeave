@@ -14,10 +14,10 @@ import { PatternGame } from "@/components/intelliplay/bonus/PatternGame";
 export const Route = createFileRoute("/bonus")({
   head: () => ({
     meta: [
-      { title: "Brain Boost Unlocked — MindWeave" },
+      { title: "Advanced Cognitive Puzzle — MindWeave" },
       {
         name: "description",
-        content: "Personalised advanced cognitive challenges unlocked by daily excellence.",
+        content: "Personalized advanced cognitive exercises tailored to your steady practice.",
       },
     ],
   }),
@@ -103,19 +103,11 @@ function BonusPage() {
     return (
       <AppShell>
         <div className="panel animate-pop mx-auto max-w-xl p-8 text-center">
-          <span className="text-6xl">🎉</span>
-          <h1 className="mt-4 font-display text-4xl font-bold">Brain Boost Complete!</h1>
+          <span className="text-6xl">🌟</span>
+          <h1 className="mt-4 font-display text-4xl font-bold">Activity Complete!</h1>
           <p className="mt-1 text-muted-foreground">
             {BONUS_LABELS[result.game]} · Level {result.level}
           </p>
-
-          <div className="mt-6 flex justify-center items-center gap-6">
-            <div className="grid size-24 place-items-center rounded-full bg-primary/15">
-              <span className="font-display text-3xl font-bold text-primary">
-                +{result.xp} XP
-              </span>
-            </div>
-          </div>
 
           <div className="mt-6 grid grid-cols-3 gap-3">
             <Stat label="Score" value={`${result.performance}`} />
@@ -139,15 +131,15 @@ function BonusPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               to="/"
-              className="toy-press rounded-full bg-primary px-6 py-3 font-display text-lg font-bold text-primary-foreground shadow-toy"
+              className="toy-press rounded-full bg-primary px-6 py-3 font-display text-lg font-bold text-primary-foreground shadow-soft"
             >
-              Back to Hub
+              Back to Activities
             </Link>
             <Link
               to="/dashboard"
               className="toy-press rounded-full border-2 border-border bg-card px-6 py-3 font-display text-lg font-bold"
             >
-              View Dashboard
+              View Activity Summary
             </Link>
           </div>
         </div>
@@ -161,9 +153,9 @@ function BonusPage() {
         <div className="panel animate-pop mx-auto max-w-xl p-8">
           <div className="text-center">
             <span className="text-5xl">🔒</span>
-            <h1 className="mt-3 font-display text-3xl font-bold">Brain Boost Locked</h1>
+            <h1 className="mt-3 font-display text-3xl font-bold">Advanced Challenge Locked</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Complete your daily games with strong accuracy to unlock advanced challenges!
+              Complete your daily core activities to unlock advanced cognitive puzzles!
             </p>
           </div>
 
@@ -182,16 +174,16 @@ function BonusPage() {
           </div>
 
           <div className="mt-6 grid grid-cols-2 gap-3 text-center">
-            <Stat label="Games Played" value={`${offer.gamesCompleted} / 4`} />
+            <Stat label="Activities Completed" value={`${offer.gamesCompleted} / 4`} />
             <Stat label="Daily Average" value={`${offer.dailyAverage}% / 85%`} />
           </div>
 
           <div className="mt-8 text-center">
             <Link
               to="/"
-              className="toy-press inline-block rounded-full bg-primary px-6 py-3 font-display text-lg font-bold text-primary-foreground shadow-toy"
+              className="toy-press inline-block rounded-full bg-primary px-6 py-3 font-display text-lg font-bold text-primary-foreground shadow-soft"
             >
-              Play Main Games
+              Play Main Activities
             </Link>
           </div>
         </div>
@@ -204,7 +196,7 @@ function BonusPage() {
       <div className="panel animate-pop mx-auto max-w-xl p-8 text-center">
         <span className="text-6xl">{BONUS_EMOJI[offer.game]}</span>
         <h1 className="mt-3 font-display text-4xl font-bold">
-          🎉 Brain Boost Unlocked!
+          🌟 Advanced Challenge Available!
         </h1>
         <p className="mt-2 text-lg font-bold text-primary">
           {BONUS_LABELS[offer.game]}
@@ -216,7 +208,7 @@ function BonusPage() {
         {/* Explainable AI Card */}
         <div className="mt-6 text-left rounded-2xl bg-card border-2 border-primary/30 p-5 shadow-soft">
           <h3 className="font-display text-sm font-bold uppercase text-primary">
-            🤖 Why this challenge unlocked for {profile.name}:
+            🤖 Why this challenge is available for {profile.name}:
           </h3>
           <ul className="mt-2 space-y-2 text-sm font-semibold">
             {offer.reasons.map((r) => (
@@ -231,9 +223,9 @@ function BonusPage() {
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => setView("playing")}
-            className="toy-press rounded-full bg-primary px-8 py-4 font-display text-xl font-bold text-primary-foreground shadow-toy"
+            className="toy-press rounded-full bg-primary px-8 py-4 font-display text-xl font-bold text-primary-foreground shadow-soft"
           >
-            🚀 Start Challenge
+            Start Challenge →
           </button>
           <button
             onClick={handleDismiss}

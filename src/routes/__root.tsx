@@ -83,21 +83,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       meta: [
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { title: "MindWeave — Adaptive Cognitive Games for Kids" },
+        { title: "MindWeave — Cognitive & Memory Companion for Seniors" },
         {
           name: "description",
           content:
-            "Four adaptive games that learn how your child thinks and personalise every challenge.",
+            "An AI-powered cognitive and memory assistance platform providing personalized cognitive activities, daily orientation, and caregiver insights for elderly dementia care.",
         },
         { name: "author", content: "MindWeave" },
         {
           property: "og:title",
-          content: "MindWeave — Adaptive Cognitive Games for Kids",
+          content: "MindWeave — Cognitive & Memory Companion for Seniors",
         },
         {
           property: "og:description",
           content:
-            "Four adaptive games that learn how your child thinks and personalise every challenge.",
+            "Adaptive cognitive exercises, daily orientation, and memory assistance tailored for elderly dementia care.",
         },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         },
         {
           rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;800&display=swap",
+          href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap",
         },
         { rel: "icon", href: "/logo.png", type: "image/png" },
       ],

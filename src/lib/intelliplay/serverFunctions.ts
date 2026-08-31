@@ -5,7 +5,7 @@ import { getDb } from "../db";
 import type {
   RoundResult,
   RoundMetrics,
-  ChildProfile,
+  PatientProfile,
   GameType,
   BonusGameType,
   BonusResult,
@@ -17,9 +17,9 @@ import type { BonusMetrics } from "./bonus";
 // Helper to initialize Firebase Admin SDK safely
 function initAdmin() {
   if (getApps().length === 0) {
-    const projectId = process.env.FIREBASE_PROJECT_ID;
-    const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
-    const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+    const projectId = process.env["FIREBASE_PROJECT_ID"];
+    const clientEmail = process.env["FIREBASE_CLIENT_EMAIL"];
+    const privateKey = process.env["FIREBASE_PRIVATE_KEY"]?.replace(/\\n/g, "\n");
 
     if (!projectId || !clientEmail || !privateKey) {
       throw new Error(
@@ -53,12 +53,13 @@ export const fetchProfile = createServerFn({ method: "GET" })
 
     const snap = await db.collection("users").doc(uid).get();
     if (!snap.exists) return null;
-    return (snap.data()?.profile as ChildProfile) || null;
+    const data = snap.data();
+    return (data?.["profile"] as PatientProfile) || null;
   });
 
 // 2. Save User Profile directly (used on creating profile, updating avatar, updating settings, etc.)
 export const saveProfile = createServerFn({ method: "POST" })
-  .validator((data: { idToken: string; profile: ChildProfile | null }) => data)
+  .validator((data: { idToken: string; profile: PatientProfile | null }) => data)
   .handler(async ({ data }) => {
     const uid = await authenticate(data.idToken);
     const db = getDb();
@@ -89,11 +90,12 @@ export const submitRoundToServer = createServerFn({ method: "POST" })
 
     // Fetch the current user doc
     const snap = await db.collection("users").doc(uid).get();
-    if (!snap.exists || !snap.data()?.profile) {
+    const docData = snap.data();
+    if (!snap.exists || !docData?.["profile"]) {
       throw new Error("No profile found for this authenticated user.");
     }
 
-    const currentProfile: ChildProfile = snap.data()!.profile;
+    const currentProfile: PatientProfile = docData["profile"];
 
     // Run the cognitive adaptation engine on the server
     const { profile: nextProfile, result } = processRound(
@@ -132,11 +134,12 @@ export const submitBonusToServer = createServerFn({ method: "POST" })
 
     // Fetch the current user doc
     const snap = await db.collection("users").doc(uid).get();
-    if (!snap.exists || !snap.data()?.profile) {
+    const docData = snap.data();
+    if (!snap.exists || !docData?.["profile"]) {
       throw new Error("No profile found for this authenticated user.");
     }
 
-    const currentProfile: ChildProfile = snap.data()!.profile;
+    const currentProfile: PatientProfile = docData["profile"];
 
     // Run the cognitive adaptation engine for bonus rounds on the server
     const { profile: nextProfile, result } = processBonusRound(

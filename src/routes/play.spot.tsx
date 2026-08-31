@@ -22,17 +22,17 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/play/spot")({
   head: () => ({
     meta: [
-      { title: "Spot the Difference — IntelliPlay Adaptive Games" },
+      { title: "Spot the Difference — MindWeave" },
       {
         name: "description",
         content:
-          "Adaptive visual attention practice: scenes get busier and differences subtler as observation improves.",
+          "Adaptive visual attention practice: calm scene observation to support focus and visual discrimination.",
       },
-      { property: "og:title", content: "Spot the Difference — IntelliPlay" },
+      { property: "og:title", content: "Spot the Difference — MindWeave" },
       {
         property: "og:description",
         content:
-          "Adaptive observation and concentration training for children.",
+          "Adaptive visual observation and concentration practice for seniors.",
       },
     ],
   }),

@@ -8,25 +8,34 @@ export const SKILLS = [
   "problemSolving",
   "reactionControl",
   "concentration",
+  "orientation",
+  "faceRecognition",
+  "languageRecall",
+  "routineSequencing",
 ] as const;
 
 export type SkillKey = (typeof SKILLS)[number];
+export type CognitiveSkillKey = SkillKey;
 
 export const SKILL_LABELS: Record<SkillKey, string> = {
-  spatialReasoning: "Spatial Reasoning",
+  spatialReasoning: "Spatial Navigation",
   visualAttention: "Visual Attention",
-  workingMemory: "Working Memory",
+  workingMemory: "Memory Recall",
   logicalReasoning: "Logical Reasoning",
   problemSolving: "Problem Solving",
-  reactionControl: "Reaction Control",
-  concentration: "Concentration",
+  reactionControl: "Response Control",
+  concentration: "Focus & Concentration",
+  orientation: "Daily Orientation",
+  faceRecognition: "Family Recognition",
+  languageRecall: "Language Recall",
+  routineSequencing: "Routine Sequencing",
 };
 
 export const GAME_LABELS: Record<GameType, string> = {
-  maze: "Maze Escape",
+  maze: "Path Navigation",
   spot: "Spot the Difference",
-  simon: "Simon Says",
-  detective: "Mini Detective",
+  simon: "Memory Sequence",
+  detective: "Story & Logic",
 };
 
 /** How much each game contributes to each cognitive skill. */
@@ -53,9 +62,9 @@ export type SpotDifficulty = {
 
 export type SimonDifficulty = {
   sequenceLength: number;
-  speed: number; // 0..1 -> faster
+  speed: number; // 0..1
   paletteSize: number;
-  inputDelay: number; // ms pause before accepting input (impulse control support)
+  inputDelay: number;
 };
 
 export type DetectiveDifficulty = {
@@ -75,14 +84,17 @@ export type DifficultyMap = {
 export type RoundMetrics = {
   accuracy: number; // 0..1
   timeTaken: number; // seconds
-  expectedTime: number; // seconds considered "par"
+  expectedTime: number; // seconds
   attempts: number;
   mistakes: number;
   hintsUsed: number;
   completed: boolean;
-  reactionTime?: number; // avg seconds per action
+  reactionTime?: number;
   mistakeType?: string;
 };
+
+export type Band = "excelling" | "strong" | "optimal" | "struggling" | "overwhelmed";
+export type Adjustment = "harder" | "same" | "scaffold" | "easier" | "much-easier";
 
 export type RoundResult = {
   id: string;
@@ -97,19 +109,16 @@ export type RoundResult = {
   notes: string[];
 };
 
-export type Band = "excelling" | "strong" | "optimal" | "struggling" | "overwhelmed";
-export type Adjustment = "harder" | "same" | "scaffold" | "easier" | "much-easier";
-
-/* ---------------- Bonus advanced challenge system ---------------- */
+/* ---------------- Bonus / Secondary Mind Exercises ---------------- */
 
 export type BonusGameType = "sudoku" | "advMaze" | "advMemory" | "logicGrid" | "pattern";
 
 export const BONUS_LABELS: Record<BonusGameType, string> = {
-  sudoku: "Sudoku",
-  advMaze: "Advanced Maze",
-  advMemory: "Advanced Memory",
-  logicGrid: "Logic Grid Puzzle",
-  pattern: "Advanced Pattern Puzzle",
+  sudoku: "Number Grid",
+  advMaze: "Advanced Route",
+  advMemory: "Memory Pattern",
+  logicGrid: "Logic Puzzle",
+  pattern: "Pattern Sequence",
 };
 
 export const BONUS_EMOJI: Record<BonusGameType, string> = {
@@ -120,7 +129,6 @@ export const BONUS_EMOJI: Record<BonusGameType, string> = {
   pattern: "🔢",
 };
 
-/** Which cognitive skill each advanced challenge primarily trains. */
 export const BONUS_SKILL: Record<BonusGameType, SkillKey> = {
   sudoku: "problemSolving",
   advMaze: "spatialReasoning",
@@ -136,6 +144,9 @@ export type BonusDifficultyMap = {
   logicGrid: { suspects: number; clues: number; redHerrings: number };
   pattern: { steps: number; complexity: number; options: number };
 };
+
+import type { BonusMetrics } from "./bonus";
+export type { BonusMetrics };
 
 export type BonusResult = {
   id: string;
@@ -157,7 +168,6 @@ export type BonusOffer = {
   game: BonusGameType;
   targetSkill: SkillKey;
   mode: "strength" | "growth";
-  /** Explainable-AI bullet points shown to the parent. */
   reasons: string[];
   blockers: string[];
   dailyAverage: number;
@@ -167,10 +177,13 @@ export type BonusOffer = {
   estimatedMinutes: number;
 };
 
-export type ParentSettings = {
+export type CaregiverSettings = {
   dailyLimitMinutes: number;
   bonusEnabled: boolean;
 };
+
+// Retain alias for backward compatibility during migration
+export type ParentSettings = CaregiverSettings;
 
 export type BonusState = {
   level: number;
@@ -178,16 +191,38 @@ export type BonusState = {
   badges: string[];
   history: BonusResult[];
   difficulty: BonusDifficultyMap;
-  /** yyyy-mm-dd of the day the child said "maybe later". */
   dismissedOn?: string;
 };
 
 export type DayUsage = { date: string; seconds: number };
 
-export type ChildProfile = {
+/* ---------------- Senior & Dementia Care Data Models ---------------- */
+
+export type CareLevel = "independent" | "guided" | "high-support";
+
+export type SeniorAccessibilitySettings = {
+  fontSize: "medium" | "large" | "extra-large";
+  highContrast: boolean;
+  voiceGuidance: boolean;
+  speechRate: number; // 0.7 .. 1.0 (slower for senior comprehension)
+  simplifiedControls: boolean;
+};
+
+export type FatigueMetrics = {
+  currentFatigueScore: number; // 0..100
+  slowDownRatio: number;
+  errorClusterCount: number;
+  recommendedBreak: boolean;
+};
+
+export type PatientProfile = {
+  id: string;
+  caregiverId?: string;
   name: string;
+  preferredName?: string;
   age: number;
-  /** Character id (e.g. "fox") or an uploaded image data URL. */
+  careLevel: CareLevel;
+  language: string; // e.g. "en", "hi", "mr"
   avatar?: string;
   createdAt: number;
   assessmentDone: boolean;
@@ -196,8 +231,69 @@ export type ChildProfile = {
   streaks: Record<GameType, number>;
   history: RoundResult[];
   patterns: string[];
-  settings: ParentSettings;
+  settings: CaregiverSettings;
+  accessibility: SeniorAccessibilitySettings;
   bonus: BonusState;
   usage: DayUsage[];
+  fatigueState?: FatigueMetrics;
 };
+
+// Alias ChildProfile to PatientProfile for smooth backward compatibility
+export type ChildProfile = PatientProfile;
+
+export type CognitiveProfile = {
+  patientId: string;
+  skills: Record<SkillKey, number>;
+  difficulty: DifficultyMap;
+  patterns: string[];
+};
+
+export type CaregiverProfile = {
+  uid: string;
+  email: string;
+  name: string;
+  linkedPatientIds: string[];
+  selectedPatientId?: string;
+};
+
+export type MemoryItem = {
+  id: string;
+  patientId: string;
+  relation: string; // e.g. "Son", "Granddaughter"
+  name: string; // e.g. "Ravi"
+  photoUrl: string;
+  location?: string; // e.g. "Delhi"
+  interests?: string[];
+  notes?: string;
+  createdAt: number;
+};
+
+export type ReminderItem = {
+  id: string;
+  patientId: string;
+  title: string;
+  type: "medication" | "routine" | "activity" | "appointment";
+  time: string; // "09:30"
+  days: string[];
+  completedToday: boolean;
+};
+
+export type SessionRecord = {
+  id: string;
+  patientId: string;
+  timestamp: number;
+  gameType: string;
+  performance: number;
+  accuracy: number;
+  timeTaken: number;
+  hintsUsed: number;
+  fatigueObserved: boolean;
+};
+
+export interface VoiceProvider {
+  listen(): Promise<string>;
+  speak(text: string, language?: string): Promise<void>;
+  stop(): void;
+}
+
 

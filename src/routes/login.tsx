@@ -125,8 +125,11 @@ function LoginPage() {
           </div>
 
           <h1 className="font-display text-2xl font-bold">
-            {tab === "signin" ? "Welcome back! 👋" : "Join MindWeave 🧠"}
+            {tab === "signin" ? "Caregiver Sign In 👋" : "Caregiver Registration 🧠"}
           </h1>
+          <p className="text-sm text-muted-foreground">
+            Sign in to manage patient profiles, memory flashcards, and daily routine schedules.
+          </p>
 
           {/* Error */}
           {error && (

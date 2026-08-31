@@ -21,16 +21,16 @@ import type { RoundResult, SimonDifficulty } from "@/lib/intelliplay/types";
 export const Route = createFileRoute("/play/simon")({
   head: () => ({
     meta: [
-      { title: "Simon Says — IntelliPlay Adaptive Games" },
+      { title: "Memory Sequence — MindWeave" },
       {
         name: "description",
         content:
-          "Adaptive memory sequences that grow, slow down or add rules based on how a child remembers.",
+          "Adaptive audio-visual pattern recall sequences to support working memory and focus.",
       },
-      { property: "og:title", content: "Simon Says — IntelliPlay" },
+      { property: "og:title", content: "Memory Sequence — MindWeave" },
       {
         property: "og:description",
-        content: "Adaptive working memory and impulse control training.",
+        content: "Adaptive working memory and pattern recognition exercises.",
       },
     ],
   }),

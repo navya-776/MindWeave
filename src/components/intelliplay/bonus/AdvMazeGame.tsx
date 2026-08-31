@@ -16,12 +16,12 @@ function generateMaze(size: number): { grid: number[][]; start: Pos; goal: Pos }
 
   function carve(r: number, c: number) {
     grid[r]![c] = 0;
-    const dirs: Pos[] = [
+    const dirs: Pos[] = ([
       [-2, 0],
       [2, 0],
       [0, -2],
       [0, 2],
-    ].sort(() => Math.random() - 0.5);
+    ] as Pos[]).sort(() => Math.random() - 0.5);
 
     for (const [dr, dc] of dirs) {
       const nr = r + dr;

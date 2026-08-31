@@ -3,11 +3,14 @@ import {
   SKILLS,
   type Adjustment,
   type Band,
+  type CareLevel,
   type ChildProfile,
   type DifficultyMap,
   type GameType,
+  type PatientProfile,
   type RoundMetrics,
   type RoundResult,
+  type SeniorAccessibilitySettings,
   type SkillKey,
 } from "./types";
 import { addUsage, defaultBonusState, defaultSettings } from "./bonus";
@@ -24,10 +27,24 @@ export function defaultDifficulty(): DifficultyMap {
   };
 }
 
-export function createProfile(name: string, age: number): ChildProfile {
+export function defaultAccessibility(): SeniorAccessibilitySettings {
   return {
+    fontSize: "large",
+    highContrast: false,
+    voiceGuidance: true,
+    speechRate: 0.85,
+    simplifiedControls: true,
+  };
+}
+
+export function createProfile(name: string, age: number, careLevel: CareLevel = "guided"): PatientProfile {
+  return {
+    id: `pat-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     name,
-    age,
+    preferredName: name,
+    age: age || 70,
+    careLevel,
+    language: "en",
     createdAt: Date.now(),
     assessmentDone: false,
     skills: SKILLS.reduce((acc, s) => ({ ...acc, [s]: 60 }), {} as Record<SkillKey, number>),
@@ -36,20 +53,26 @@ export function createProfile(name: string, age: number): ChildProfile {
     history: [],
     patterns: [],
     settings: defaultSettings(),
+    accessibility: defaultAccessibility(),
     bonus: defaultBonusState(),
     usage: [],
   };
 }
 
-/** Older saved profiles get the new bonus/parent fields filled in. */
-export function migrateProfile(p: ChildProfile): ChildProfile {
+/** Older saved profiles get the new senior/caregiver fields filled in. */
+export function migrateProfile(p: PatientProfile): PatientProfile {
   return {
     ...p,
+    id: p.id ?? `pat-${Date.now()}`,
+    careLevel: p.careLevel ?? "guided",
+    language: p.language ?? "en",
     settings: { ...defaultSettings(), ...p.settings },
+    accessibility: { ...defaultAccessibility(), ...p.accessibility },
     bonus: { ...defaultBonusState(), ...p.bonus },
     usage: p.usage ?? [],
   };
 }
+
 
 
 /* ---------------- Performance scoring ---------------- */
@@ -327,17 +350,17 @@ export function buildFeedback(
   diag: Diagnostics,
 ): string {
   const prev = history[history.length - 1]?.performance;
-  if (diag.fastButWrong) return "Take one more second to look before you choose — you've got this!";
-  if (diag.slowButAccurate) return "Excellent thinking! You took your time and got it right.";
+  if (diag.fastButWrong) return "Take all the time you need to look carefully — you are doing wonderful!";
+  if (diag.slowButAccurate) return "Splendid focus! You took your time and answered thoughtfully.";
   if (band === "overwhelmed")
-    return "Let's try an easier one together — every try makes you better.";
+    return "Let's try a calmer, more relaxed activity together — every attempt keeps the mind active.";
   if (band === "struggling" && m.hintsUsed >= 2)
-    return "Nice effort! Let's practise a simpler version and build back up.";
+    return "Great effort! Hints are here to guide you whenever you'd like.";
   if (prev !== undefined && performance > prev + 8)
-    return "You did better than last time — brilliant progress!";
-  if (band === "excelling") return "You're ready for a bigger challenge!";
-  if (band === "strong") return "Really well played — that was solid work.";
-  return "Good job! Keep going, you're right in your learning zone.";
+    return "Wonderful progress! Your focus and clarity are improving nicely.";
+  if (band === "excelling") return "Excellent work! You are handling these exercises with great ease.";
+  if (band === "strong") return "Solid concentration — well done!";
+  return "Wonderful work today! Keep going at your own comfortable pace.";
 }
 
 export function behaviouralPatterns(history: RoundResult[]): string[] {

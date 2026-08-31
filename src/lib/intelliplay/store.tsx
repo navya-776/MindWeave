@@ -12,11 +12,14 @@ import { processBonusRound, todayKey, type BonusMetrics } from "./bonus";
 import type {
   BonusGameType,
   BonusResult,
+  CaregiverSettings,
+  CareLevel,
   ChildProfile,
   GameType,
-  ParentSettings,
+  PatientProfile,
   RoundMetrics,
   RoundResult,
+  SeniorAccessibilitySettings,
 } from "./types";
 import { auth } from "../firebase";
 import { signOut as firebaseSignOut, type User } from "firebase/auth";
@@ -27,22 +30,25 @@ import {
   submitBonusToServer,
 } from "./serverFunctions";
 
-const KEY = "mindweave.profile.v1";
-const LEGACY_KEY = "intelliplay.profile.v1";
+const KEY = "mindweave.patient.v2";
+const LEGACY_KEY = "mindweave.profile.v1";
+const ANCIENT_KEY = "intelliplay.profile.v1";
 
 type Ctx = {
-  profile: ChildProfile | null;
+  profile: PatientProfile | null;
   ready: boolean;
   lastResult: RoundResult | null;
   idToken: string | null;
   user: User | null;
-  start: (name: string, age: number, avatar?: string) => Promise<void>;
+  start: (name: string, age: number, avatar?: string, careLevel?: CareLevel) => Promise<void>;
   setAvatar: (avatar: string) => Promise<void>;
-  finishAssessment: (skills: Partial<ChildProfile["skills"]>) => Promise<void>;
+  finishAssessment: (skills: Partial<PatientProfile["skills"]>) => Promise<void>;
   submitRound: (game: GameType, metrics: RoundMetrics, diag?: Diagnostics) => Promise<RoundResult>;
   submitBonus: (game: BonusGameType, metrics: BonusMetrics) => Promise<BonusResult>;
   dismissBonus: () => Promise<void>;
-  updateSettings: (patch: Partial<ParentSettings>) => Promise<void>;
+  updateSettings: (patch: Partial<CaregiverSettings>) => Promise<void>;
+  updateAccessibility: (patch: Partial<SeniorAccessibilitySettings>) => Promise<void>;
+  updateCareLevel: (careLevel: CareLevel) => Promise<void>;
   reset: () => Promise<void>;
   signOut: () => Promise<void>;
 };
@@ -136,8 +142,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   );
 
   const start = useCallback(
-    async (name: string, age: number, avatar = "fox") => {
-      const next = { ...createProfile(name, age), avatar };
+    async (name: string, age: number, avatar = "p1", careLevel: CareLevel = "guided") => {
+      const next = { ...createProfile(name, age, careLevel), avatar };
       setProfile(next);
       if (idToken) {
         await saveProfile({ data: { idToken, profile: next } });
@@ -154,7 +160,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   );
 
   const finishAssessment = useCallback(
-    async (skills: Partial<ChildProfile["skills"]>) => {
+    async (skills: Partial<PatientProfile["skills"]>) => {
       await updateProfile((p) =>
         p ? { ...p, assessmentDone: true, skills: { ...p.skills, ...skills } } : p
       );
@@ -228,8 +234,24 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   }, [updateProfile]);
 
   const updateSettings = useCallback(
-    async (patch: Partial<ParentSettings>) => {
+    async (patch: Partial<CaregiverSettings>) => {
       await updateProfile((p) => (p ? { ...p, settings: { ...p.settings, ...patch } } : p));
+    },
+    [updateProfile]
+  );
+
+  const updateAccessibility = useCallback(
+    async (patch: Partial<SeniorAccessibilitySettings>) => {
+      await updateProfile((p) =>
+        p ? { ...p, accessibility: { ...p.accessibility, ...patch } } : p
+      );
+    },
+    [updateProfile]
+  );
+
+  const updateCareLevel = useCallback(
+    async (careLevel: CareLevel) => {
+      await updateProfile((p) => (p ? { ...p, careLevel } : p));
     },
     [updateProfile]
   );
@@ -262,6 +284,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       submitBonus,
       dismissBonus,
       updateSettings,
+      updateAccessibility,
+      updateCareLevel,
       reset,
       signOut,
     }),
@@ -278,6 +302,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
       submitBonus,
       dismissBonus,
       updateSettings,
+      updateAccessibility,
+      updateCareLevel,
       reset,
       signOut,
     ]

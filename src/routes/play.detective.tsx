@@ -21,17 +21,17 @@ import type { DetectiveDifficulty, RoundResult } from "@/lib/intelliplay/types";
 export const Route = createFileRoute("/play/detective")({
   head: () => ({
     meta: [
-      { title: "Mini Detective — IntelliPlay Adaptive Games" },
+      { title: "Story & Logic — MindWeave" },
       {
         name: "description",
         content:
-          "Solve friendly classroom mysteries where clue count and red herrings adapt to your child's reasoning.",
+          "Gentle contextual stories and clues to practice logical deduction and working memory at your own pace.",
       },
-      { property: "og:title", content: "Mini Detective — IntelliPlay" },
+      { property: "og:title", content: "Story & Logic — MindWeave" },
       {
         property: "og:description",
         content:
-          "Adaptive logical reasoning and deduction puzzles for children.",
+          "Adaptive logical reasoning and deduction exercises for seniors.",
       },
     ],
   }),
