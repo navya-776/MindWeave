@@ -6,10 +6,20 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   server: {
-    allowedHosts: true,
+    allowedHosts: [
+      "mindweave-myba.onrender.com",
+      ".onrender.com",
+      ".vercel.app",
+      "localhost",
+    ],
   },
   preview: {
-    allowedHosts: true,
+    allowedHosts: [
+      "mindweave-myba.onrender.com",
+      ".onrender.com",
+      ".vercel.app",
+      "localhost",
+    ],
   },
   plugins: [
     tanstackStart({
