@@ -7,7 +7,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "preview": "vite preview --host 0.0.0.0 --allowed-hosts all",
+    "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
