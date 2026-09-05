@@ -8,12 +8,12 @@ type Props = {
 };
 
 const PADS = [
-  { id: 0, color: "bg-red-500 hover:bg-red-400 text-white", label: "🔴 Red", icon: "🍎" },
-  { id: 1, color: "bg-blue-500 hover:bg-blue-400 text-white", label: "🔵 Blue", icon: "🫐" },
-  { id: 2, color: "bg-green-500 hover:bg-green-400 text-white", label: "🟢 Green", icon: "🍏" },
-  { id: 3, color: "bg-amber-500 hover:bg-amber-400 text-white", label: "🟡 Yellow", icon: "🍌" },
-  { id: 4, color: "bg-purple-500 hover:bg-purple-400 text-white", label: "🟣 Purple", icon: "🍇" },
-  { id: 5, color: "bg-pink-500 hover:bg-pink-400 text-white", label: "🩷 Pink", icon: "🌸" },
+  { id: 0, color: "bg-red-600 hover:bg-red-500 text-white high-contrast:bg-red-700 high-contrast:text-white high-contrast:border-4 high-contrast:border-white", label: "🔴 Red", icon: "🍎" },
+  { id: 1, color: "bg-blue-600 hover:bg-blue-500 text-white high-contrast:bg-blue-700 high-contrast:text-white high-contrast:border-4 high-contrast:border-white", label: "🔵 Blue", icon: "🫐" },
+  { id: 2, color: "bg-green-600 hover:bg-green-500 text-white high-contrast:bg-green-700 high-contrast:text-white high-contrast:border-4 high-contrast:border-white", label: "🟢 Green", icon: "🍏" },
+  { id: 3, color: "bg-amber-400 hover:bg-amber-300 text-black font-extrabold high-contrast:bg-yellow-400 high-contrast:text-black high-contrast:border-4 high-contrast:border-white", label: "🟡 Yellow", icon: "🍌" },
+  { id: 4, color: "bg-purple-600 hover:bg-purple-500 text-white high-contrast:bg-purple-800 high-contrast:text-white high-contrast:border-4 high-contrast:border-white", label: "🟣 Purple", icon: "🍇" },
+  { id: 5, color: "bg-pink-600 hover:bg-pink-500 text-white high-contrast:bg-pink-800 high-contrast:text-white high-contrast:border-4 high-contrast:border-white", label: "🩷 Pink", icon: "🌸" },
 ];
 
 export function AdvMemoryGame({ difficulty, onComplete }: Props) {

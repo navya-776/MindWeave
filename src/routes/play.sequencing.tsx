@@ -211,8 +211,8 @@ function SequencingGamePage() {
               let itemBorder = "border-border bg-card";
               if (isAnswered) {
                 itemBorder = isItemCorrectPosition
-                  ? "border-success bg-success/10"
-                  : "border-warning bg-warning/10";
+                  ? "border-success bg-success/10 high-contrast:bg-success/20 high-contrast:border-2"
+                  : "border-warning bg-warning/10 high-contrast:bg-warning/20 high-contrast:border-2";
               }
 
               return (
@@ -270,7 +270,7 @@ function SequencingGamePage() {
           {isAnswered && (
             <div
               className={`rounded-2xl p-4 text-center font-display text-base font-bold animate-pop ${
-                isCorrect ? "bg-success/15 text-success" : "bg-primary/10 text-primary"
+                isCorrect ? "bg-success/15 text-success high-contrast:bg-success/25" : "bg-primary/10 text-primary high-contrast:bg-primary/20"
               }`}
             >
               {isCorrect

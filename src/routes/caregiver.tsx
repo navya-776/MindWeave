@@ -137,7 +137,7 @@ function CaregiverPage() {
                     className={`px-3 py-1.5 rounded-xl font-bold text-xs capitalize transition-all ${
                       profile.accessibility?.fontSize === size
                         ? "bg-primary text-primary-foreground"
-                        : "bg-card border border-border text-muted-foreground"
+                        : "bg-card border border-border text-muted-foreground high-contrast:text-foreground"
                     }`}
                   >
                     {size === "extra-large" ? "XL" : size}
@@ -150,7 +150,7 @@ function CaregiverPage() {
             <div className="flex items-center justify-between rounded-2xl bg-muted/40 p-4">
               <div>
                 <p className="font-display text-base font-bold">High Contrast Mode</p>
-                <p className="text-xs text-muted-foreground">Black & white maximum contrast background.</p>
+                <p className="text-xs text-muted-foreground">High contrast black & white theme.</p>
               </div>
               <button
                 onClick={() =>
@@ -159,7 +159,7 @@ function CaregiverPage() {
                 className={`toy-press px-4 py-2 rounded-full font-bold text-xs transition-all ${
                   profile.accessibility?.highContrast
                     ? "bg-primary text-primary-foreground"
-                    : "bg-card border border-border text-muted-foreground"
+                    : "bg-card border border-border text-muted-foreground high-contrast:text-foreground"
                 }`}
               >
                 {profile.accessibility?.highContrast ? "ON" : "OFF"}

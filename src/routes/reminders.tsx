@@ -102,7 +102,7 @@ function RemindersPage() {
                 onClick={() => handleToggle(r.id)}
                 className={`toy-press panel p-5 flex items-center justify-between gap-4 cursor-pointer transition-all ${
                   r.completedToday
-                    ? "bg-success/10 border-success/40 opacity-75"
+                    ? "bg-success/10 border-success/40 opacity-75 high-contrast:opacity-100"
                     : "bg-card border-2 border-border hover:border-primary/50"
                 }`}
               >
@@ -133,7 +133,7 @@ function RemindersPage() {
                   <div
                     className={`size-8 rounded-full border-2 flex items-center justify-center font-bold text-sm transition-all ${
                       r.completedToday
-                        ? "bg-success border-success text-white"
+                        ? "bg-success border-success text-success-foreground"
                         : "border-border bg-background"
                     }`}
                   >

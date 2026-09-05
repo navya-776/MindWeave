@@ -23,21 +23,21 @@ export function AppShell({ children }: { children: ReactNode }) {
     html.classList.add(`font-size-${fontSize}`);
   }, [fontSize]);
 
-  // Apply high-contrast class to <html> for global contrast overrides
+  // Apply high-contrast and dark classes to <html> for global contrast overrides
   useEffect(() => {
     const html = document.documentElement;
     if (isHighContrast) {
-      html.classList.add("high-contrast");
+      html.classList.add("high-contrast", "dark");
     } else {
-      html.classList.remove("high-contrast");
+      html.classList.remove("high-contrast", "dark");
     }
   }, [isHighContrast]);
 
   return (
     <div
       className={cn(
-        "min-h-screen transition-colors duration-200",
-        isHighContrast && "high-contrast bg-black text-white",
+        "min-h-screen transition-colors duration-200 bg-background text-foreground",
+        isHighContrast && "high-contrast dark",
       )}
     >
       {/* Top Accessibility Bar */}
@@ -52,7 +52,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             onClick={() => updateAccessibility({ highContrast: !isHighContrast })}
             className="hover:text-foreground underline transition-colors"
           >
-            {isHighContrast ? "☀️ Normal Contrast" : "👁️ High Contrast"}
+            {isHighContrast ? "☀️ Light Mode" : "👁️ High Contrast (Dark)"}
           </button>
           <button
             onClick={() => {

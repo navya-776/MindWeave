@@ -244,15 +244,15 @@ export function AdvMazeGame({ difficulty, onComplete }: Props) {
                 className={cn(
                   "flex items-center justify-center font-bold transition-all text-sm sm:text-base",
                   cell === 1
-                    ? "bg-muted-foreground/30 rounded-md"
+                    ? "bg-muted-foreground/30 high-contrast:bg-foreground rounded-md"
                     : isPlayer
                     ? "bg-primary text-primary-foreground rounded-full text-lg shadow-toy"
                     : isGoal
-                    ? "bg-success/30 rounded-xl text-xl animate-bounce"
+                    ? "bg-success/30 high-contrast:bg-success high-contrast:text-success-foreground rounded-xl text-xl animate-bounce"
                     : isHazard
-                    ? "bg-destructive/20 text-destructive rounded-lg"
+                    ? "bg-destructive/20 text-destructive high-contrast:bg-destructive high-contrast:text-destructive-foreground rounded-lg"
                     : isHint
-                    ? "bg-warning/40 rounded-lg animate-pulse"
+                    ? "bg-warning/40 text-warning-foreground high-contrast:bg-warning high-contrast:text-warning-foreground high-contrast:border-2 high-contrast:border-black rounded-lg animate-pulse"
                     : "bg-background rounded-sm"
                 )}
               >

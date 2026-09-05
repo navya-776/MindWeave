@@ -221,10 +221,10 @@ export function SudokuGame({ difficulty, onComplete }: Props) {
                     ? "bg-muted/70 text-foreground cursor-default"
                     : val !== 0
                     ? isWrong
-                      ? "bg-destructive/20 text-destructive border-2 border-destructive"
-                      : "bg-primary/20 text-primary"
+                      ? "bg-destructive/20 text-destructive high-contrast:bg-destructive high-contrast:text-destructive-foreground border-2 border-destructive"
+                      : "bg-primary/20 text-primary high-contrast:bg-primary high-contrast:text-primary-foreground"
                     : "bg-background hover:bg-muted/40",
-                  isSel && "ring-4 ring-primary",
+                  isSel && "ring-4 ring-primary high-contrast:ring-foreground",
                   borderRight && "mr-1.5",
                   borderBottom && "mb-1.5"
                 )}

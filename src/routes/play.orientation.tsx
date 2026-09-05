@@ -248,11 +248,11 @@ function OrientationGamePage() {
 
               if (isAnswered) {
                 if (isCorrect) {
-                  btnStyle = "border-success bg-success/15 text-success font-bold";
+                  btnStyle = "border-success bg-success/15 text-success font-bold high-contrast:bg-success/25 high-contrast:border-2";
                 } else if (isSelected) {
-                  btnStyle = "border-destructive bg-destructive/15 text-destructive";
+                  btnStyle = "border-destructive bg-destructive/15 text-destructive high-contrast:bg-destructive/25 high-contrast:border-2";
                 } else {
-                  btnStyle = "border-border bg-card opacity-50";
+                  btnStyle = "border-border bg-card opacity-50 high-contrast:opacity-75";
                 }
               }
 

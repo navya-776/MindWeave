@@ -106,7 +106,7 @@ export function SeniorVoiceBar({
           onClick={handleToggleListen}
           className={`toy-press flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-all ${
             isListening
-              ? "bg-destructive text-white shadow-soft animate-pulse"
+              ? "bg-destructive text-destructive-foreground shadow-soft animate-pulse"
               : "bg-card border border-border text-foreground hover:border-primary/50"
           }`}
           title="Answer by voice"

@@ -244,13 +244,13 @@ function SeniorHub() {
   return (
     <div className="space-y-8">
       {/* Daily Orientation Banner */}
-      <div className="panel animate-pop p-6 bg-card border-2 border-primary/30 shadow-soft flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="panel animate-pop p-6 bg-card border-2 border-primary/30 high-contrast:border-border shadow-soft flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="grid size-14 place-items-center rounded-2xl bg-primary/15 text-primary text-3xl shrink-0">
             ☀️
           </div>
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground high-contrast:text-foreground">
               Daily Orientation Check-In
             </span>
             <h2 className="font-display text-2xl font-bold">
@@ -268,7 +268,7 @@ function SeniorHub() {
           >
             Start Orientation →
           </Link>
-          <span className="rounded-full bg-muted px-3.5 py-2 text-xs font-bold text-muted-foreground border border-border">
+          <span className="rounded-full bg-muted px-3.5 py-2 text-xs font-bold text-muted-foreground border border-border high-contrast:text-foreground">
             Mode: <strong className="text-foreground capitalize">{p.careLevel}</strong>
           </span>
         </div>

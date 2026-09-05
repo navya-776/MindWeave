@@ -82,7 +82,7 @@ function MemoriesPage() {
                   alt={activeMemory.name}
                   className="h-full w-full object-cover"
                 />
-                <span className="absolute top-4 left-4 rounded-full bg-black/60 backdrop-blur-md px-4 py-1.5 font-display text-sm font-bold text-white shadow-md">
+                <span className="absolute top-4 left-4 rounded-full bg-black/80 backdrop-blur-md px-4 py-1.5 font-display text-sm font-bold text-white shadow-md high-contrast:border-2 high-contrast:border-white">
                   {activeMemory.relation}
                 </span>
               </div>
